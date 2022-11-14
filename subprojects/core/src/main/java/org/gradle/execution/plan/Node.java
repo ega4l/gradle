@@ -26,6 +26,7 @@ import org.gradle.internal.resources.ResourceLock;
 
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;

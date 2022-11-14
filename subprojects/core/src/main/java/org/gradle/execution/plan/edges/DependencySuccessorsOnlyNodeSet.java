@@ -21,6 +21,7 @@ import org.gradle.execution.plan.Node;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.NavigableSet;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class DependencySuccessorsOnlyNodeSet implements DependencyNodesSet {
     public DependencySuccessorsOnlyNodeSet addDependency(Node node) {
         orderedDependencies.add(node);
         if (waitingFor == null) {
-            waitingFor = new HashSet<>();
+            waitingFor = new LinkedHashSet<>();
         }
         // It would be better to discard dependencies that have already completed at this point, rather than collecting them and checking their state later
         // However, it is not always known whether a dependency will be scheduled or not when it is added here.

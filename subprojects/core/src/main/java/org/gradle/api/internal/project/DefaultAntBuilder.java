@@ -200,7 +200,7 @@ public class DefaultAntBuilder extends BasicAntBuilder implements GroovyObject {
 
         @Override
         public Set<? extends Task> getDependencies(Task task) {
-            Set<Task> tasks = Sets.newHashSetWithExpectedSize(taskDependencyNames.size());
+            Set<Task> tasks = Sets.newLinkedHashSetWithExpectedSize(taskDependencyNames.size());
             for (String dependedOnTaskName : taskDependencyNames) {
                 Task dependency = task.getProject().getTasks().findByName(dependedOnTaskName);
                 if (dependency == null) {

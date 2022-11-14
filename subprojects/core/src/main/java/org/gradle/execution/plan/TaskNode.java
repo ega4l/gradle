@@ -20,6 +20,9 @@ import com.google.common.collect.Iterables;
 import org.gradle.api.internal.TaskInternal;
 import org.gradle.internal.deprecation.DeprecationLogger;
 
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.NavigableSet;
 import java.util.Set;
 
