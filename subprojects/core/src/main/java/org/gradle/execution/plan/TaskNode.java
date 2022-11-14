@@ -21,16 +21,18 @@ import com.google.common.collect.Sets;
 import org.gradle.api.internal.TaskInternal;
 import org.gradle.internal.deprecation.DeprecationLogger;
 
-import java.util.NavigableSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.function.Consumer;
 
 public abstract class TaskNode extends Node {
-    private final NavigableSet<Node> mustSuccessors = Sets.newTreeSet();
-    private final Set<Node> mustPredecessors = Sets.newHashSet();
-    private final NavigableSet<Node> shouldSuccessors = Sets.newTreeSet();
-    private final NavigableSet<Node> finalizers = Sets.newTreeSet();
-    private final NavigableSet<Node> finalizingSuccessors = Sets.newTreeSet();
+    private final LinkedHashSet<Node> mustSuccessors = Sets.newLinkedHashSet();
+    private final LinkedHashSet<Node> mustPredecessors = Sets.newLinkedHashSet();
+    private final LinkedHashSet<Node> shouldSuccessors = Sets.newLinkedHashSet();
+    private final LinkedHashSet<Node> finalizers = Sets.newLinkedHashSet();
+    private final LinkedHashSet<Node> finalizingSuccessors = Sets.newLinkedHashSet();
 
     @Override
     public DependenciesState doCheckDependenciesComplete() {
@@ -126,13 +128,17 @@ public abstract class TaskNode extends Node {
     }
 
     @Override
-    public Iterable<Node> getAllSuccessorsInReverseOrder() {
-        return Iterables.concat(
-            super.getAllSuccessorsInReverseOrder(),
-            mustSuccessors.descendingSet(),
-            getGroup().getSuccessorsInReverseOrderFor(this),
-            shouldSuccessors.descendingSet()
-        );
+    public Iterable<Node> getPlanDependency() {
+        LinkedList<Node> result = new LinkedList<>();
+        getGroup().getSuccessorsFor(this).forEach(e -> result.add(e));
+        super.getPlanDependency().forEach(e ->  result.add(e));
+        result.addAll(mustSuccessors);
+        return new Iterable<Node>() {
+            @Override
+            public Iterator<Node> iterator() {
+                return result.descendingIterator();
+            }
+        };
     }
 
     @Override

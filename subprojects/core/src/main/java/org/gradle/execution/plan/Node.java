@@ -26,9 +26,9 @@ import org.gradle.internal.resources.ResourceLock;
 
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.NavigableSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -67,8 +67,8 @@ public abstract class Node implements Comparable<Node> {
     private DependenciesState dependenciesState = DependenciesState.NOT_COMPLETE;
     private Throwable executionFailure;
     private boolean filtered;
-    private final NavigableSet<Node> dependencySuccessors = Sets.newTreeSet();
-    private final NavigableSet<Node> dependencyPredecessors = Sets.newTreeSet();
+    private final Set<Node> dependencySuccessors = Sets.newLinkedHashSet();
+    private final Set<Node> dependencyPredecessors = Sets.newLinkedHashSet();
     private final MutationInfo mutationInfo = new MutationInfo(this);
     private NodeGroup group = NodeGroup.DEFAULT_GROUP;
 
@@ -379,10 +379,6 @@ public abstract class Node implements Comparable<Node> {
         return dependencySuccessors;
     }
 
-    public Iterable<Node> getDependencySuccessorsInReverseOrder() {
-        return dependencySuccessors.descendingSet();
-    }
-
     public void addDependencySuccessor(Node toNode) {
         dependencySuccessors.add(toNode);
         toNode.getDependencyPredecessors().add(this);
@@ -505,11 +501,12 @@ public abstract class Node implements Comparable<Node> {
     public Iterable<Node> getHardSuccessors() {
         return dependencySuccessors;
     }
-
     @OverridingMethodsMustInvokeSuper
-    public Iterable<Node> getAllSuccessorsInReverseOrder() {
-        return dependencySuccessors.descendingSet();
+    public Iterable<Node> getPlanDependency() {
+        return dependencySuccessors;
     }
+
+
 
     public Set<Node> getFinalizers() {
         return Collections.emptySet();

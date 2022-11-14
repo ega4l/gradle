@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class CachingDirectedGraphWalker<N, T> {
     private final DirectedGraphWithEdgeValues<N, T> graph;
     private List<N> startNodes = new ArrayList<N>();
     private Set<NodeDetails<N, T>> strongComponents = new LinkedHashSet<NodeDetails<N, T>>();
-    private final Map<N, Set<T>> cachedNodeValues = new HashMap<N, Set<T>>();
+    private final Map<N, Set<T>> cachedNodeValues = new LinkedHashMap<N, Set<T>>();
 
     public CachingDirectedGraphWalker(DirectedGraph<N, T> graph) {
         this.graph = new GraphWithEmptyEdges<N, T>(graph);

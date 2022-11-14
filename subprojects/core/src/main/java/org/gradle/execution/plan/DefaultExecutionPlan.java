@@ -210,7 +210,7 @@ public class DefaultExecutionPlan implements ExecutionPlan, WorkSource<Node> {
                 for (Node successor : node.getHardSuccessors()) {
                     successor.maybeInheritOrdinalAsDependency(node.getGroup());
                 }
-                for (Node successor : node.getDependencySuccessorsInReverseOrder()) {
+                for (Node successor : node.getPlanDependency()) {
                     if (!visiting.contains(successor)) {
                         queue.addFirst(successor);
                     }
@@ -284,7 +284,7 @@ public class DefaultExecutionPlan implements ExecutionPlan, WorkSource<Node> {
                     addFinalizerToQueue(nodeQueue, visitingSegmentCounter++, finalizer);
                 }
 
-                for (Node successor : node.getAllSuccessorsInReverseOrder()) {
+                for (Node successor : node.getPlanDependency()) {
                     if (visitingNodes.containsEntry(successor, currentSegment)) {
                         if (!walkedShouldRunAfterEdges.isEmpty()) {
                             //remove the last walked should run after edge and restore state from before walking it
