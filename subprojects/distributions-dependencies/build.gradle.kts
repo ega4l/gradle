@@ -16,13 +16,13 @@ description = "Provides a platform dependency to align all distribution versions
 val antVersion = "1.10.11"
 val archunitVersion = "1.0.0-rc1"
 val asmVersion = "9.3"
-val awsS3Version = "1.11.948"
+val awsS3Version = "1.12.373"
 val bouncycastleVersion = "1.68"
-val jacksonVersion = "2.13.3"
+val jacksonVersion = "2.13.4"
 val jaxbVersion = "3.0.0"
 val jettyVersion = "9.4.36.v20210114"
 val junit5Version = "5.8.2"
-val mavenVersion = "3.6.3"
+val mavenVersion = "3.8.2"
 val nativePlatformVersion = "0.22-milestone-24"
 val slf4jVersion = "1.7.30"
 val sshdVersion = "2.0.0" // Upgrade requires changes in package names and tests fail on expectations (but work otherwise)
@@ -93,7 +93,7 @@ dependencies {
         api(libs.ivy)                   { version { strictly("2.3.0"); because("2.4.0 contains a breaking change in DefaultModuleDescriptor.getExtraInfo(), cf. https://issues.apache.org/jira/browse/IVY-1457") }}
         api(libs.jacksonAnnotations)    { version { strictly(jacksonVersion) }}
         api(libs.jacksonCore)           { version { strictly(jacksonVersion) }}
-        api(libs.jacksonDatabind)       { version { strictly(jacksonVersion) }}
+        api(libs.jacksonDatabind)       { version { strictly(jacksonVersion + ".2") }}
         api(libs.jakartaActivation)     { version { strictly("2.0.0") }}
         api(libs.jakartaXmlBind)        { version { strictly("3.0.0") }}
         api(libs.jansi)                 { version { strictly("1.18"); because("2.x changes the API") }}
@@ -108,7 +108,7 @@ dependencies {
         api(libs.joda)                  { version { strictly("2.10.4") }}
         api(libs.joptSimple)            { version { strictly("5.0.4"); because("needed to create profiler in Gradle profiler API") }}
         api(libs.jsch)                  { version { strictly("0.1.55") }}
-        api(libs.jsoup)                 { version { strictly("1.15.1") }}
+        api(libs.jsoup)                 { version { strictly("1.15.3") }}
         api(libs.jsr305)                { version { strictly("3.0.2") }}
         api(libs.julToSlf4j)            { version { strictly(slf4jVersion) }}
         api(libs.junit)                 { version { strictly("4.13.2") }}
@@ -134,7 +134,7 @@ dependencies {
         api(libs.plist)                 { version { strictly("1.21") }}
         api(libs.servletApi)            { version { strictly("3.1.0") }}
         api(libs.slf4jApi)              { version { strictly(slf4jVersion) }}
-        api(libs.snakeyaml)             { version { strictly("1.32") }}
+        api(libs.snakeyaml)             { version { strictly("1.33") }}
         api(libs.testng)                { version { strictly("6.3.1"); because("later versions break test cross-version test filtering") }}
         api(libs.tomlj)                 { version { strictly(tomljVersion) }}
         api(libs.trove4j)               { version { strictly("1.0.20200330") }}

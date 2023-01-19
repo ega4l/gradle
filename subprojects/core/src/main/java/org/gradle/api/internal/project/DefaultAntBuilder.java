@@ -147,7 +147,8 @@ public class DefaultAntBuilder extends BasicAntBuilder implements GroovyObject {
 
         final List<String> taskDependencyNames = getTaskDependencyNames(target, taskNamer);
         task.dependsOn(new AntTargetsTaskDependency(taskDependencyNames));
-        addDependencyOrdering(taskDependencyNames, task.getProject().getTasks());
+        // Do not add dependency ordering as shouldRunAfter, as it's a bug conecept producing a lot of cycles if targets reused often in different
+        // addDependencyOrdering(taskDependencyNames, task.getProject().getTasks());
     }
 
     private static List<String> getTaskDependencyNames(Target target, Transformer<? extends String, ? super String> taskNamer) {
