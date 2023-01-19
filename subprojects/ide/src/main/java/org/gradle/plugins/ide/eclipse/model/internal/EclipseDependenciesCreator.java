@@ -115,10 +115,12 @@ public class EclipseDependenciesCreator {
             if (componentIdentifier.equals(currentProjectId)) {
                 return;
             }
+            /*
             LibraryElements libraryElements = artifact.getVariant().getAttributes().getAttribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE);
             if (libraryElements == null || !libraryElements.getName().equals(LibraryElements.JAR)) {
                 return;
             }
+             */
             ComponentArtifactIdentifier artifactId = artifact.getId();
             TaskDependency buildDependencies = null;
             if (artifactId instanceof ComponentArtifactMetadata) {
