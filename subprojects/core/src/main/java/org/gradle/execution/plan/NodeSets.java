@@ -17,6 +17,7 @@
 package org.gradle.execution.plan;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.NavigableSet;
 import java.util.Set;
@@ -28,8 +29,15 @@ public final class NodeSets {
         return new TreeSet<>(NodeComparator.INSTANCE);
     }
 
+    public static NavigableSet<Node> newNaturalOrderSet() {
+        return new NaturalOrderSet<>();
+    }
+
     public static List<Node> sortedListOf(Set<Node> nodes) {
         List<Node> sorted = new ArrayList<>(nodes);
+        if ( nodes instanceof NaturalOrderSet ) {
+            return sorted;
+        }
         sorted.sort(NodeComparator.INSTANCE);
         return sorted;
     }

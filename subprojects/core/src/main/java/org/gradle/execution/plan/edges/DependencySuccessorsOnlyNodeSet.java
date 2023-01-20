@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 import java.util.NavigableSet;
 import java.util.Set;
 
+import static org.gradle.execution.plan.NodeSets.newNaturalOrderSet;
 import static org.gradle.execution.plan.NodeSets.newSortedNodeSet;
 
 /**
@@ -33,7 +34,7 @@ import static org.gradle.execution.plan.NodeSets.newSortedNodeSet;
  * <p>Attempts to efficiently determine whether a node can start or not based on the state of its dependencies, by tracking those dependencies that are still to complete.</p>
  */
 public class DependencySuccessorsOnlyNodeSet implements DependencyNodesSet {
-    private final NavigableSet<Node> orderedDependencies = newSortedNodeSet();
+    private final NavigableSet<Node> orderedDependencies = newNaturalOrderSet();
     private Set<Node> waitingFor;
     private boolean nodeCannotStart;
     private boolean pruned;

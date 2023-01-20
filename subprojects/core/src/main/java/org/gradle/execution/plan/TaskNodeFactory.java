@@ -41,6 +41,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,7 +50,7 @@ import java.util.function.Function;
 
 @ServiceScope(Scopes.Build.class)
 public class TaskNodeFactory {
-    private final Map<Task, TaskNode> nodes = new HashMap<>();
+    private final Map<Task, TaskNode> nodes = new LinkedHashMap<>();
     private final BuildTreeWorkGraphController workGraphController;
     private final GradleInternal thisBuild;
     private final DocumentationRegistry documentationRegistry;

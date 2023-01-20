@@ -26,10 +26,11 @@ import java.util.LinkedList;
 import java.util.NavigableSet;
 import java.util.Set;
 
+import static org.gradle.execution.plan.NodeSets.newNaturalOrderSet;
 import static org.gradle.execution.plan.NodeSets.newSortedNodeSet;
 
 public abstract class TaskNode extends Node {
-    private final NavigableSet<Node> shouldSuccessors = newSortedNodeSet();
+    private final NavigableSet<Node> shouldSuccessors = newNaturalOrderSet();
     private final NavigableSet<Node> finalizingSuccessors = newSortedNodeSet();
 
     @Override
