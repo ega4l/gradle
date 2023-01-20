@@ -82,9 +82,9 @@ public class NaturalOrderSet<E> implements NavigableSet<E>, SortedSet<E> {
 
     @Override
     public Iterator<E> iterator() {
-        Iterator<ElementWithOrder<E>> iter = realSet.iterator();
         return new Iterator<E>() {
-
+            Iterator<ElementWithOrder<E>> iter = realSet.iterator();
+            ElementWithOrder<E> current = null;
             @Override
             public boolean hasNext() {
                 return iter.hasNext();
@@ -92,7 +92,18 @@ public class NaturalOrderSet<E> implements NavigableSet<E>, SortedSet<E> {
 
             @Override
             public E next() {
-                return iter.next().getElement();
+                current = iter.next();
+                return current.getElement();
+            }
+            public void remove()
+            {
+                if ( current == null )
+                {
+                    throw new RuntimeException("Current element is null");
+                }
+                iter.remove();
+                observer.remove(current.getElement());
+                current = null;
             }
         };
     }
@@ -165,8 +176,10 @@ public class NaturalOrderSet<E> implements NavigableSet<E>, SortedSet<E> {
 
     @Override
     public Iterator<E> descendingIterator() {
-        Iterator<ElementWithOrder<E>> iter = realSet.descendingIterator();
         return new Iterator<E>() {
+            Iterator<ElementWithOrder<E>> iter = realSet.descendingIterator();
+            ElementWithOrder<E> current = null;
+
             @Override
             public boolean hasNext() {
                 return iter.hasNext();
@@ -174,7 +187,18 @@ public class NaturalOrderSet<E> implements NavigableSet<E>, SortedSet<E> {
 
             @Override
             public E next() {
-                return iter.next().getElement();
+                current = iter.next();
+                return current.getElement();
+            }
+            public void remove()
+            {
+                if ( current == null )
+                {
+                    throw new RuntimeException("Current element is null");
+                }
+                iter.remove();
+                observer.remove(current.getElement());
+                current = null;
             }
         };
     }
